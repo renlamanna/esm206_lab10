@@ -1,0 +1,82 @@
+---
+title: "Lab 10 - cool and sometimes useful things"
+author: "Renee LaManna"
+date: "11/30/2021"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(tidyverse)
+library(usethis)
+library(janitor)
+
+# New packages
+library(beepr)
+library(praise)
+library(cowsay)
+library(paletteer)
+library(sf)
+```
+
+## beeper beeps
+
+Use the fxn `beep()` in the beepr package to make an audio alert when your code is done running. 
+- Run beep in console(1-12) pick a  number 1-12
+- **paste default indicates 1 space between number in sequence and first word e.g. paste0 -> 99bottles
+- want code to exist, but don't want to run code everytime, eval = FALSE
+
+```{r eval = FALSE}
+for (i in rev(seq(1:99))) {
+  
+  print(paste(i, "bottles of beer on the wall"))
+}
+
+beep(4)
+
+```
+
+## Praise and cowsay 
+
+Packages built with a single purpose: to be kind and fun.
+
+```{r}
+praise("${Exclamation},
+       ${EXCLAMATION}... ${exclamation}!!!!")
+       
+praise("Holy ${creating}, Batman - this code is ${ADJECTIVE}!")
+```
+
+Use cowsay::say()
+
+```{r}
+
+```
+
+>  in console to convert to git
+
+usethis::use_git, yes, yes
+and then  usethis::use_git() again in console
+- should pull up online tab
+- can rename branch in github, but won't rename in local
+- must copy and paste link
+- "git branch -m master main
+git fetch origin
+git branch -u origin/main main
+git remote set-head origin -a" run without quotes in terminal
+
+
+
+## Use paletteer to access thousand of color palettes
+
+```{r}
+storms %>% 
+  group_by(name) %>% 
+  summarize(min_pressure = min(pressure, na.rm = TRUE)) %>% 
+  slice_min(n = 10, min_pressure) %>% 
+  ggplot(aes(x = min_pressure, y = name)) +
+  geom_col(aes(fill = name)) +
+  scale_fill_paletteer_d("colRoz::desert_dusk")
+  
+```
+
