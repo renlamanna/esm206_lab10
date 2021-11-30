@@ -80,3 +80,26 @@ storms %>%
   
 ```
 
+## One spatial data example
+NA is a constant NOT a variable, so color = NA applies to line color
+
+```{r}
+vegetation <- read_sf("doc.kml") %>% 
+  clean_names() %>% 
+  select(name) 
+
+ggplot(data = vegetation) +
+  geom_sf(aes(fill = name), color = NA) +
+  theme_minimal() +
+  scale_fill_paletteer_d("ggthemes::manyeys") +
+  labs(title = "Jornada Basin LTER Vegetation",
+       caption = "Source: Jornada LTER")
+  
+# Update to theme_minimal
+# Fill color change based on vegetation
+# color of line to NA (color = NA)
+```
+```{r}
+ggsave(filename = "my_awesome_map.jpg", width = 8, height = 5)
+```
+
